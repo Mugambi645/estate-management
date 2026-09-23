@@ -13,6 +13,8 @@ node_modules/dist/
 # Env and local state
 .env
 .env.local
+api/.envs/.env.local
+
 *.log
 # OS
 .DS_Store
