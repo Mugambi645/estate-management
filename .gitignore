@@ -1,0 +1,30 @@
+api/.venv
+venv/
+
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+services/api/staticfiles/
+services/api/media/
+# Node
+node_modules/dist/
+.vite/
+# Env and local state
+.env
+.env.local
+*.log
+# OS
+.DS_Store
+admin.txt
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
