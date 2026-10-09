@@ -32,3 +32,26 @@ ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
 ADMIN_URL = getenv("DJANGO_ADMIN_URL", "")
 DEFAULT_FROM_EMAIL = getenv("DEFAULT_FROM_EMAIL", "patrick@localhost")
 DOMAIN = getenv("DOMAIN", "localhost")
+
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(name)-12s %(asctime)s %(module)s %(process)d %(thread)d %(message)s"
+        }
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        }
+    },
+    "root": {
+        "level": "INFO",
+        "handlers": ["console"],
+    },
+}
