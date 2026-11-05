@@ -180,3 +180,5 @@ CELERY_EMAIL_BACKEND = getenv("CELERY_EMAIL_BACKEND", "django.core.mail.backends
 
 
 TAGGIT_CASE_INSENSITIVE = True
+
+AUTH_USER_MODEL = "users.User"

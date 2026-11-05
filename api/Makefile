@@ -6,6 +6,7 @@
         db-volume mailpit-volume estate-db
 
 COMPOSE := docker compose -f local.yml
+PROJECT_APPS := issues users common profiles ratings post
 
 help:  ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
@@ -30,8 +31,8 @@ show-logs:  ## Tail all logs
 show-logs-api:  ## Tail API logs
 	$(COMPOSE) logs -f api
 
-makemigrations:  ## Generate Django migrations
-	$(COMPOSE) run --rm api python manage.py makemigrations
+makemigrations:  ## Generate migrations for project apps only
+	$(COMPOSE) run --rm api python manage.py makemigrations $(PROJECT_APPS)
 
 migrate:  ## Apply Django migrations
 	$(COMPOSE) run --rm api python manage.py migrate
