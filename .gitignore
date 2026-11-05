@@ -1,37 +1,35 @@
-api/.venv
-venv/
+# Python / Django
+**/__pycache__/
+**/*.py[cod]
+**/.venv/
+**/venv/
+**/*.egg-info/
+**/build/
+**/dist/
+**/wheels/
+**/.pytest_cache/
 
-__pycache__/
-*.pyc
-.venv/
-*.egg-info/
-services/api/staticfiles/
-services/api/media/
-api/staticfiles/*
-!api/staticfiles/.gitkeep
-# Node
-node_modules/dist/
-.vite/
-# Env and local state
-.env
-.env.local
-api/.envs/.env.local
+# Django generated assets
+**/staticfiles/*
+!**/staticfiles/.gitkeep
+**/media/
 
-*.log
-# OS
-.DS_Store
-admin.txt
+# Node / Next.js
+**/node_modules/
+**/.next/
+**/out/
+**/.turbo/
+**/.vite/
+**/coverage/
+**/*.tsbuildinfo
 
-# Python-generated files
-__pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
+# Environment / local state
+**/.env
+**/.env.*
+!.env.example
+**/*.log
+**/.DS_Store
+**/admin.txt
 
-# Virtual environments
-.venv
-
-
-Screenshot_2026-11-05_19-07-09.png
+# OS / editor artifacts
+**/Screenshot_*.png
