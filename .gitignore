@@ -7,6 +7,8 @@ __pycache__/
 *.egg-info/
 services/api/staticfiles/
 services/api/media/
+/staticfiles/*
+!/staticfiles/.gitkeep
 # Node
 node_modules/dist/
 .vite/
