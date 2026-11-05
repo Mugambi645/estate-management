@@ -3,6 +3,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/local/django/Dockerfile
+      args:
+        UID: "${UID:-1000}"
+        GID: "${GID:-1000}"
     image: estate_prod_api
     container_name: estate_prod_api
     user: "${UID:-1000}:${GID:-1000}"
@@ -51,6 +54,26 @@ services:
     networks:
       - estate_prod_nw
 
+  client:
+    build:
+      context: ./client
+      dockerfile: ./docker/local/Dockerfile
+    image: estate_client
+    container_name: estate_client
+    ports:
+      - "3000:3000"
+    environment:
+      # File-watching / HMR on bind mounts (needed on macOS/Windows hosts)
+      WATCHPACK_POLLING: "true"
+    volumes:
+      - ./client:/app
+      # Named (not anonymous) so it can be removed explicitly when deps change:
+      #   make client-reset-deps
+      - client_node_modules:/app/node_modules
+      - client_next_cache:/app/.next
+    networks:
+      - estate_prod_nw
+
 networks:
   estate_prod_nw:
     external: true
@@ -58,3 +81,5 @@ networks:
 volumes:
   estate_prod_postgres_data: {}
   estate_prod_mailpit_data: {}
+  client_node_modules: {}
+  client_next_cache: {}

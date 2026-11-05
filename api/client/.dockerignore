@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+.next
+/dist
+*.tsbuildinfo
+
+# Test coverage
+coverage
+
+# Environment files (pass these via compose `environment:` instead,
+# or keep the bind mount for local dev)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Misc
+.pnp
+.pnp.js
+.vercel

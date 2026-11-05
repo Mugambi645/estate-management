@@ -3,7 +3,8 @@
 .DEFAULT_GOAL := help
 .PHONY: help build up down down-v show-logs show-logs-api \
         makemigrations migrate collectstatic superuser \
-        db-volume mailpit-volume estate-db
+        db-volume mailpit-volume estate-db \
+        client-rebuild client-reset-deps client-logs client-check
 
 COMPOSE := docker compose -f local.yml
 PROJECT_APPS := issues users common profiles ratings post
@@ -22,7 +23,7 @@ up:  ## Start the stack detached
 down:  ## Stop the stack
 	$(COMPOSE) down
 
-down-v:  ## Stop the stack and remove volumes
+down-v:  ## Stop the stack and remove volumes (wipes Postgres data too!)
 	$(COMPOSE) down -v
 
 show-logs:  ## Tail all logs
@@ -50,5 +51,23 @@ mailpit-volume:  ## Inspect the Mailpit volume
 	docker volume inspect api_estate_prod_mailpit_data
 
 estate-db:  ## Open a psql shell in the Postgres container
-	$(COMPOSE) exec postgres psql --username=patrickmugambi --dbname=estate	/staticfiles/*
-	!/staticfiles/.gitkeep
+	$(COMPOSE) exec postgres psql --username=patrickmugambi --dbname=estate
+
+# ---------- Next.js client ----------
+
+client-rebuild:  ## Rebuild the client image and restart it
+	$(COMPOSE) build client
+	$(COMPOSE) up -d client
+
+client-reset-deps:  ## Wipe client node_modules/.next volumes, rebuild, restart (Postgres untouched)
+	$(COMPOSE) rm -fsv client
+	docker volume ls -q --filter name=client_node_modules | xargs -r docker volume rm
+	docker volume ls -q --filter name=client_next_cache | xargs -r docker volume rm
+	$(COMPOSE) build --no-cache client
+	$(COMPOSE) up -d client
+
+client-logs:  ## Tail client logs
+	$(COMPOSE) logs -f client
+
+client-check:  ## List installed @tailwindcss packages inside the client container
+	$(COMPOSE) exec client ls node_modules/@tailwindcss
