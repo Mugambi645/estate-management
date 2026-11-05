@@ -24,7 +24,7 @@ SITE_NAME = getenv("SITE_NAME", "Pegasus Apartments")
 SECRET_KEY = getenv("DJANGO_SECRET_KEY",
                     "hSEK1qArROHXyOPfe8tsvDNql_RXEKVtCIO8cPW0kLsrvYHyGIs")
 
-
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8080"]
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "0.0.0.0"]
 
